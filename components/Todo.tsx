@@ -1,5 +1,6 @@
 "use client";
 import { CiTrash } from "react-icons/ci";
+import { motion } from "framer-motion";
 type Todotype = {
   id: string;
   title: string;
@@ -10,7 +11,17 @@ type Todotype = {
 
 function Todo({ id, title, complet, toggleTodo, deletTodo }: Todotype) {
   return (
-    <li className="flex gap-4 border justify-between border-slate-100 rounded-lg p-4 items-center">
+    <motion.div
+      animate={{
+        x: 0,
+        opacity: 1,
+      }}
+      exit={{
+        x: 20,
+        opacity: 0,
+      }}
+      className="flex gap-4 border justify-between border-slate-100 rounded-lg p-4 items-center"
+    >
       <div className="flex gap-4 items-center">
         <input
           type="checkbox"
@@ -31,7 +42,7 @@ function Todo({ id, title, complet, toggleTodo, deletTodo }: Todotype) {
           deletTodo(id);
         }}
       />
-    </li>
+    </motion.div>
   );
 }
 

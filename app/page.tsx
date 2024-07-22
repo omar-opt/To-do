@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react";
 import Link from "next/link";
 import prisma from "./db";
 // import ToDos from "@/src/componnent/ToDos";
@@ -6,6 +7,9 @@ import Todo from "@/components/Todo";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import Loading from "@/components/Loading";
+import { motion, AnimatePresence } from "framer-motion";
+
+import ToDos from "@/components/ToDos";
 
 async function toggleTodo(id: string, complet: boolean) {
   "use server";
@@ -16,6 +20,7 @@ async function deletTodo(id: string) {
   await prisma.todo.delete({ where: { id } });
   redirect("/");
 }
+
 export default async function Home() {
   const todos = await prisma.todo.findMany();
   // await prisma.todo.create({ data: { title: "red", complet: false } });
@@ -31,18 +36,20 @@ export default async function Home() {
         </Link>
       </header>
       <Suspense fallback={<Loading />}>
-        <ul className="flex flex-col mt-28 gap-4 p-4 w-full ">
-          {todos.map((todo) => {
-            return (
-              <Todo
-                {...todo}
-                key={todo.id}
-                toggleTodo={toggleTodo}
-                deletTodo={deletTodo}
-              />
-            );
-          })}{" "}
-        </ul>
+        <div className="flex flex-col mt-28 gap-4 p-4 w-full ">
+          <AnimatePresence>
+            {todos.map((todo) => {
+              return (
+                <Todo
+                  {...todo}
+                  key={todo.id}
+                  toggleTodo={toggleTodo}
+                  deletTodo={deletTodo}
+                />
+              );
+            })}{" "}
+          </AnimatePresence>
+        </div>
       </Suspense>
     </main>
   );
