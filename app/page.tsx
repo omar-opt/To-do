@@ -35,22 +35,26 @@ export default async function Home() {
           New
         </Link>
       </header>
-      <Suspense fallback={<Loading />}>
-        <div className="flex flex-col mt-28 gap-4 p-4 w-full ">
-          <AnimatePresence>
-            {todos.map((todo) => {
-              return (
-                <Todo
-                  {...todo}
-                  key={todo.id}
-                  toggleTodo={toggleTodo}
-                  deletTodo={deletTodo}
-                />
-              );
-            })}{" "}
-          </AnimatePresence>
-        </div>
-      </Suspense>
+      <ToDos />
     </main>
   );
 }
+
+// <Suspense fallback={<Loading />}>
+//   <div className="flex flex-col mt-28 gap-4 p-4 w-full ">
+//     {todos.map((todo) => {
+//       return (
+//         <>
+//           {/* <AnimatePresence> */}
+//           <ToDos
+//             {...todo}
+//             key={todo.id}
+//             toggleTodo={toggleTodo}
+//             deletTodo={deletTodo}
+//           />
+//           {/* </AnimatePresence> */}
+//         </>
+//       );
+//     })}{" "}
+//   </div>
+// </Suspense>

@@ -1,6 +1,9 @@
 "use client";
 import { CiTrash } from "react-icons/ci";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import prisma, { toggleTodo, deletTodo } from "@/app/db";
+import { redirect } from "next/navigation";
+
 type Todotype = {
   id: string;
   title: string;
@@ -10,6 +13,7 @@ type Todotype = {
 };
 
 function Todo({ id, title, complet, toggleTodo, deletTodo }: Todotype) {
+  // console.log("ddddd", param);
   return (
     <motion.div
       animate={{
